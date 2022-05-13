@@ -1,8 +1,13 @@
 import Navigation from '@/components/Layouts/Navigation'
 import { useAuth } from '@/hooks/auth'
+import RedirectingCard from '../RedirectingCard'
 
 const AppLayout = ({ header, children }) => {
     const { user } = useAuth({ middleware: 'auth' })
+
+    if (!user) {
+        return <RedirectingCard />
+    }
 
     return (
         <div className="min-h-screen bg-gray-100">
