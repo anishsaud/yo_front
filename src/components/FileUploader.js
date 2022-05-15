@@ -4,7 +4,7 @@ import { useDropzone } from 'react-dropzone'
 import { GrDocumentCsv } from 'react-icons/gr'
 import { HiOutlineUpload, HiOutlineExclamationCircle } from 'react-icons/hi'
 import { IoCloseCircleOutline, IoCloseCircleSharp } from 'react-icons/io5'
-import useSWR from 'swr'
+import useSWR, { useSWRConfig } from 'swr'
 
 import Button from './Button'
 
@@ -12,6 +12,8 @@ export default function FileUploader() {
     const [files, setFiles] = useState([])
     const [errors, setErrors] = useState([])
     const [filesHasDuplicates, setFilesHasDuplicates] = useState(false)
+
+    const { mutate } = useSWRConfig()
 
     const onDrop = useCallback(
         acceptedFiles => {
@@ -28,11 +30,12 @@ export default function FileUploader() {
         },
     })
 
+    const csrf = () => axios.get('/sanctum/csrf-cookie')
+
     useEffect(() => {
         const fileNames = files.map(file => {
             return file.name
         })
-
         setFilesHasDuplicates(new Set(fileNames).size !== fileNames.length)
     }, [files])
 
@@ -66,8 +69,6 @@ export default function FileUploader() {
         </div>
     )
 
-    const csrf = () => axios.get('/sanctum/csrf-cookie')
-
     // action methods
     const handleSubmit = async () => {
         await csrf()
@@ -84,7 +85,7 @@ export default function FileUploader() {
                 },
             })
             .then(res => {
-                console.log(res)
+                mutate('/api/files')
                 setFiles([])
             })
             .catch(error => {
