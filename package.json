@@ -31,8 +31,10 @@
     "eslint-plugin-next": "^0.0.0",
     "eslint-plugin-prettier": "^3.3.0",
     "eslint-plugin-react": "^7.22.0",
+    "laravel-echo": "^1.11.7",
     "postcss": "^8.4.6",
     "prettier": "2.2.1",
+    "pusher-js": "*",
     "tailwindcss": "^3.0.22"
   }
 }

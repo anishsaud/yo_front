@@ -32,24 +32,23 @@ export default function DataTable({}) {
 
     const columns = [
         {
-            selector: 'created_at',
+            selector: row => row.created_at,
             name: 'Time',
             sortable: true,
-            cell: row => {
-                return (
-                    <div>
-                        {row.created_at} <br /> {row.created_at_diff}
-                    </div>
-                )
-            },
+            cell: row => (
+                <div>
+                    {row.created_at} <br />
+                    {row.created_at_diff}
+                </div>
+            ),
         },
         {
-            selector: 'original_name',
+            selector: row => row.original_name,
             name: 'Name',
             sortable: true,
         },
         {
-            selector: 'status',
+            selector: row => row.status,
             name: 'Status',
             cell: row => {
                 return (
@@ -73,7 +72,7 @@ export default function DataTable({}) {
                         {row.status == 'COMPLETED' && (
                             <span
                                 className="px-4 py-2 rounded-full 
-                            text-gray-500 bg-green-600 
+                            text-gray-50 bg-green-600 
                             text-sm flex align-center ">
                                 {row.status}
                             </span>
@@ -81,7 +80,7 @@ export default function DataTable({}) {
                         {row.status == 'FAILED' && (
                             <span
                                 className="px-4 py-2 rounded-full 
-                            text-gray-100 bg-red-600 
+                            text-gray-50 bg-red-600 
                             text-sm flex align-center ">
                                 {row.status}
                             </span>
